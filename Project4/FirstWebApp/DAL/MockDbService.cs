@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -20,16 +21,41 @@ namespace FirstWebApp.DAL
             };
         }
 
+        
         public IEnumerable<Student> GetStudents()
         {
-            using (var client = new SqlConnection(@"Server=(localdb)\SQLEXPRESS01;Integrated Security=true;"))
+            /*
+            using (var con = new SqlConnection(
+            @"Server=(localdb)\SQLEXPRESS01;Integrated Security=true;"))
             {
-                using (var com = new SqlCommand())
-                { 
-                    
+                SqlCommand com = new SqlCommand();
+                com.Command = con;
+            }
+            */
+            /*
+            using (SqlConnection con = new SqlConnection(
+            @"Server=localhost\SQLEXPRESS01;Integrated Security=true;"))
+            {
+                using (var com = new SqlCommand("Select * From Student"))
+                {
+                    com.Connection = con;
+
+                    con.Open();
+                    var dr = com.ExecuteReader();
+                    while (dr.Read())
+                    {
+                        var st = new Student();
+                        st.FirstName = dr["FirstName"].ToString();
+                        //...
+                    }
                 }
             }
-                return _students;
+            */
+
+            return _students;
         }
+
+        public Student GetStudent(string name)
+        { return null; }
     }
 }

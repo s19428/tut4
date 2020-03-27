@@ -43,11 +43,18 @@ namespace FirstWebApp.Controllers
             _dbService = dbService;
         }
 
-        [HttpGet]
-        public IActionResult GetStudents(string orderBy)
+        [HttpGet("{name}")]
+        public IActionResult GetStudent(string name)
         {
             //return $"Student1, Student2, Student3 orderBy = {orderBy}";
-            return Ok(_dbService.GetStudents());
+            return Ok(_dbService.GetStudent(name));
+        }
+
+        //[Route("semesterEntries")]
+        [HttpGet("semesterEntries/{studentID}")]
+        public IActionResult GetSemesterEntries(int studentID)
+        {
+            return Ok("" + studentID);
         }
 
         [HttpPost]
