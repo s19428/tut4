@@ -54,7 +54,8 @@ namespace FirstWebApp.Controllers
         [HttpGet("semesterEntries/{studentID}")]
         public IActionResult GetSemesterEntries(int studentID)
         {
-            return Ok("" + studentID);
+            //return Ok("" + studentID);
+            return Ok(_dbService.GetSemesterEntries(studentID));
         }
 
         [HttpPost]

@@ -57,5 +57,7 @@ namespace FirstWebApp.DAL
 
         public Student GetStudent(string name)
         { return null; }
+
+        public List<int> GetSemesterEntries(int studentId) { return null; }
     }
 }

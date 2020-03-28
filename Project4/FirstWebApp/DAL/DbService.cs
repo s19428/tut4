@@ -75,6 +75,34 @@ namespace FirstWebApp.DAL
             return null;
         }
 
+        public List<int> GetSemesterEntries(int studentId)
+        {
+            string sqlString = "Select e.Semester" + 
+                                " From Enrollment e" +
+                                " Where e.idEnrollment = (Select s.idEnrollment" +
+                                " From Student s" +
+                                $" Where s.IndexNumber = {studentId})";
+
+            using (SqlConnection con = new SqlConnection(connectionString))
+            {
+                using (var com = new SqlCommand(sqlString))
+                {
+                    com.Connection = con;
+
+                    con.Open();
+                    var dr = com.ExecuteReader();
+                    List<int> semesterEntries = new List<int>();
+                    while (dr.Read())
+                    {
+                        semesterEntries.Add(int.Parse(dr["Semester"].ToString()));
+                    }
+                    return semesterEntries;
+                }
+            }
+
+            return null;
+        }
+
         /*
         private SqlDataReader Execute(string sqlString)
         {

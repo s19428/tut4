@@ -9,5 +9,6 @@ namespace FirstWebApp.DAL
     {
         public IEnumerable<Student> GetStudents();
         public Student GetStudent(string name);
+        public List<int> GetSemesterEntries(int studentId);
     }
 }
