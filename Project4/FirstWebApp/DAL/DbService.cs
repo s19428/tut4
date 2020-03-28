@@ -54,9 +54,10 @@ namespace FirstWebApp.DAL
         {
             using (SqlConnection con = new SqlConnection(connectionString))
             {
-                using (var com = new SqlCommand($"Select * From Student Where FirstName Like '{name}'"))
+                using (var com = new SqlCommand($"Select * From Student Where FirstName Like @name"))
                 {
                     com.Connection = con;
+                    com.Parameters.AddWithValue("name", name);
 
                     con.Open();
                     var dr = com.ExecuteReader();
@@ -81,13 +82,15 @@ namespace FirstWebApp.DAL
                                 " From Enrollment e" +
                                 " Where e.idEnrollment = (Select s.idEnrollment" +
                                 " From Student s" +
-                                $" Where s.IndexNumber = {studentId})";
+                                $" Where s.IndexNumber = @studentId)";
 
             using (SqlConnection con = new SqlConnection(connectionString))
             {
                 using (var com = new SqlCommand(sqlString))
                 {
                     com.Connection = con;
+                    com.CommandText = sqlString;
+                    com.Parameters.AddWithValue("studentId", studentId);
 
                     con.Open();
                     var dr = com.ExecuteReader();
